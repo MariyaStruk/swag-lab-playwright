@@ -1,6 +1,8 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from "@playwright/test";
 import { UserCredentials } from '../interfaces/user-credentials.ts'
+import users from '../fixtures/users.json';
+
 
 export class LoginPage {
   readonly userNameField: Locator;
@@ -12,6 +14,12 @@ export class LoginPage {
     this.userNameField = page.getByPlaceholder('Username');
     this.passwordField = page.getByPlaceholder('Password');
     this.errorMessageContainer = page.locator('.error-message-container')
+  }
+
+  async login() {
+    await this.fillCredentials(users.success);
+    await this.submit();
+    await expect(this.page.getByText('Products')).toBeVisible();
   }
 
   async goto(): Promise<void> {
