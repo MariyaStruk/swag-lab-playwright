@@ -25,5 +25,4 @@ test.describe('shopping cart', () => {
       await productsPage.removeFromShoppingCart('Sauce Labs Backpack');
       await shoppingCartPage.checkBage('1');
     })
-
 })
