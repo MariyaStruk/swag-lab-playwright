@@ -31,4 +31,9 @@ export class ProductsPage {
     await expect(removeButton).toBeHidden();
     await expect(addToCartButton).toBeVisible();
   }
+
+  async openProduct(productTitle: string) {
+    const productName = this.page.locator('.inventory_item_name ', { hasText: productTitle });
+    await productName.click();
+  }
 }

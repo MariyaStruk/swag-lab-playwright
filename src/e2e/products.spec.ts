@@ -25,4 +25,23 @@ test.describe('shopping cart', () => {
       await productsPage.removeFromShoppingCart('Sauce Labs Backpack');
       await shoppingCartPage.checkBage('1');
     })
+
+    test('should open the product page', async ({ page }) => {
+      await productsPage.openProduct('Sauce Labs Backpack');
+      const product = page.getByText('Back to products');
+      await expect(product).toBeVisible();
+    })
+
+    test('should add and remove product to cart from the product page', async ({ page }) => {
+      await productsPage.openProduct('Sauce Labs Backpack');
+      await shoppingCartPage.checkBage('');
+      const addToCartButton = page.locator('button', { hasText: 'Add to cart' });
+      await addToCartButton.click();
+      await shoppingCartPage.checkBage('1');
+      const removeButton = page.locator('button', { hasText: 'Remove' });
+      await removeButton.click();
+      await shoppingCartPage.checkBage('');
+      const backToProductsButton = page.locator('button',{ hasText: 'Back to products' } );
+      await backToProductsButton.click();
+    })
 })
